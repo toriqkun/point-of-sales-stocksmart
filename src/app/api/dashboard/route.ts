@@ -62,7 +62,7 @@ export async function GET(request: Request) {
     });
 
     const topProducts = bestSellingItems.map((item: { productId: number; _sum: { quantity: number | null } }) => {
-      const product = products.find(p => p.id === item.productId);
+      const product = products.find((p: { id: number; name: string }) => p.id === item.productId);
       return {
         name: product?.name || "Unknown",
         totalSold: item._sum.quantity || 0,
