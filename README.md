@@ -149,7 +149,7 @@ StockSmart/
 ---
 
 ## 📄 Lisensi
-Distributed under the MIT License. See `LICENSE` for more information.
+MIT.
 
 ---
 **StockSmart** - *Empowering small businesses with smart data insights.*
