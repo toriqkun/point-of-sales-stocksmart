@@ -1,10 +1,5 @@
 # 🚀 StockSmart - Smart SaaS POS & Stock Management
 
-[![Next.js](https://img.shields.io/badge/Next.js-15+-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Styling-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-
 **StockSmart** adalah aplikasi SaaS Point of Sales (POS) modern yang dirancang untuk membantu pemilik bisnis mengelola inventaris secara cerdas dan otomatis. Dengan integrasi algoritma Machine Learning lokal, StockSmart tidak hanya mencatat transaksi, tetapi juga memberikan wawasan mendalam tentang performa produk Anda.
 
 ---
