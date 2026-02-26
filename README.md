@@ -124,22 +124,6 @@ StockSmart/
 
 ---
 
-## ☁️ Deployment ke Vercel
-
-1.  Push kode Anda ke GitHub/GitLab/Bitbucket.
-2.  Masuk ke [Vercel Dashboad](https://vercel.com/) dan buat **New Project**.
-3.  Impor repository StockSmart.
-4.  Konfigurasikan **Environment Variables** di Vercel sesuai dengan file `.env` lokal Anda.
-    - *Tips: Gunakan database production dari Supabase atau Neon.*
-5.  Tambahkan **Build Settings** jika diperlukan (biasanya Next.js terdeteksi otomatis).
-6.  Klik **Deploy**.
-7.  Setelah berhasil, jalankan migrasi database production (jika belum) melalui Vercel CLI atau manual:
-    ```bash
-    npx prisma migrate deploy
-    ```
-
----
-
 ## 🔮 Future Improvements
 - [ ] Integrasi Pembayaran Digital (QRIS/E-Wallet).
 - [ ] Sistem manajemen Supplier.
