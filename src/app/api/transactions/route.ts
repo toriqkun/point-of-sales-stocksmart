@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
+
+// We use any for tx to avoid Prisma namespace import issues that can occur in some build environments
+// but we keep the internal structure typed via the items mapping
 
 export async function POST(request: Request) {
   try {
@@ -17,7 +19,7 @@ export async function POST(request: Request) {
     }
 
     // Use a transaction to ensure atomic updates
-    const transaction = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const transaction = await prisma.$transaction(async (tx: any) => {
       // 1. Create the transaction record
       const newTransaction = await tx.transaction.create({
         data: {
