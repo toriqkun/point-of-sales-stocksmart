@@ -27,7 +27,7 @@ export async function getLandingStats() {
       ownerCount: ownerCount || 0,
       productCount: productCount || 0,
       transactionCount: transactionCount || 0,
-      recentAvatars: recentOwners.map(o => o.avatarImage).filter(Boolean) as string[]
+      recentAvatars: recentOwners.map((o: { avatarImage: string | null }) => o.avatarImage).filter(Boolean) as string[]
     };
   } catch (error) {
     console.error("Failed to fetch landing stats:", error);
