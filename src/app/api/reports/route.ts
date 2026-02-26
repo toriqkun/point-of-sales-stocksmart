@@ -39,12 +39,12 @@ export async function GET(request: Request) {
     });
 
     // Flatten for easy display or export
-    const reportData = transactions.map(t => ({
+    const reportData = transactions.map((t: any) => ({
       id: t.id,
       date: t.createdAt,
       totalPrice: t.totalPrice,
       itemsCount: t.items.length,
-      itemDetails: t.items.map(i => `${i.product.name} (${i.quantity})`).join(", ")
+      itemDetails: t.items.map((i: any) => `${i.product.name} (${i.quantity})`).join(", ")
     }));
 
     return NextResponse.json(reportData);

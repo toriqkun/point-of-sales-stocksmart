@@ -33,7 +33,11 @@ export async function POST(request: Request) {
     }
 
     // 2. Format data for K-Means
-    const dataPoints = stats.map(s => ({
+    const dataPoints = stats.map((s: { 
+      productId: number; 
+      _sum: { quantity: number | null; subtotal: number | null }; 
+      _count: { transactionId: number } 
+    }) => ({
       id: s.productId, // temp ID
       productId: s.productId,
       qty: s._sum.quantity || 0,

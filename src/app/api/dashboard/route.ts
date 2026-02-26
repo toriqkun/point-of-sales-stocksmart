@@ -56,12 +56,12 @@ export async function GET(request: Request) {
 
     const products = await prisma.product.findMany({
       where: {
-        id: { in: bestSellingItems.map(item => item.productId) },
+        id: { in: bestSellingItems.map((item: { productId: number }) => item.productId) },
         ownerId: oId
       }
     });
 
-    const topProducts = bestSellingItems.map(item => {
+    const topProducts = bestSellingItems.map((item: { productId: number; _sum: { quantity: number | null } }) => {
       const product = products.find(p => p.id === item.productId);
       return {
         name: product?.name || "Unknown",
@@ -81,7 +81,7 @@ export async function GET(request: Request) {
       monthSales: salesMonth._sum.totalPrice || 0,
       totalProducts,
       topProducts,
-      clusterDist: clusterDist.reduce((acc: any, curr) => {
+      clusterDist: clusterDist.reduce((acc: any, curr: { cluster: string | null; _count: { id: number } }) => {
         acc[curr.cluster || "unassigned"] = curr._count.id;
         return acc;
       }, {}),

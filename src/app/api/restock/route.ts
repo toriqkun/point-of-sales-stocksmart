@@ -30,7 +30,7 @@ export async function GET(request: Request) {
       },
     });
 
-    const alerts = products.map(p => ({
+    const alerts = products.map((p: any) => ({
       id: p.id,
       name: p.name,
       stock: p.stock,
