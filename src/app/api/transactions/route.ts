@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 
 export async function POST(request: Request) {
   try {
@@ -16,14 +17,14 @@ export async function POST(request: Request) {
     }
 
     // Use a transaction to ensure atomic updates
-    const transaction = await prisma.$transaction(async (tx) => {
+    const transaction = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // 1. Create the transaction record
       const newTransaction = await tx.transaction.create({
         data: {
           totalPrice,
           ownerId: parseInt(ownerId),
           items: {
-            create: items.map((item: any) => ({
+            create: items.map((item: { id: number; quantity: number; price: number }) => ({
               productId: item.id,
               quantity: item.quantity,
               subtotal: item.price * item.quantity,
