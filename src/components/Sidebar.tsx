@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { updateProfileAction } from "@/app/actions/auth";
+import { updateProfileAction, getSession, logoutAction } from "@/app/actions/auth";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { Camera, Loader2 } from "lucide-react";
@@ -52,17 +52,32 @@ export function Sidebar() {
   });
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
-      setNewName(parsedUser.name);
-      setNewBusinessName(parsedUser.businessName || "");
-      setAvatarPreview(parsedUser.avatarImage || "");
-    }
-  }, []);
+    const validateSession = async () => {
+        const session = await getSession();
+        if (!session) {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("user");
+            if (pathname.startsWith("/admin")) {
+                router.push("/login");
+            }
+            return;
+        }
 
-  const handleLogout = () => {
+        setUser(session);
+        setNewName(session.name);
+        setNewBusinessName(session.businessName || "");
+        setAvatarPreview(session.avatarImage || "");
+        
+        // Update localStorage agar tetap sync
+        localStorage.setItem("user", JSON.stringify(session));
+        localStorage.setItem("isLoggedIn", "true");
+    };
+
+    validateSession();
+  }, [pathname, router]);
+
+  const handleLogout = async () => {
+    await logoutAction();
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("user");
     router.push("/login");

@@ -2,6 +2,10 @@
 
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
+
+const JWT_SECRET = process.env.JWT_SECRET || "stocksmart_secret_2024_secure_key";
 
 export async function loginAction(email: string, password: string) {
   try {
@@ -11,7 +15,7 @@ export async function loginAction(email: string, password: string) {
       },
       include: {
         owner: true // Ambil data owner jika dia kasir
-      }
+      },
     });
 
     if (!user) {
@@ -27,22 +31,61 @@ export async function loginAction(email: string, password: string) {
     const effectiveOwnerId = user.role === "owner" ? user.id : user.ownerId;
     const effectiveBusinessName = user.role === "owner" ? user.businessName : user.owner?.businessName;
 
+    const userData = { 
+        id: user.id, 
+        name: user.name, 
+        email: user.email, 
+        role: user.role,
+        avatarImage: user.avatarImage,
+        businessName: effectiveBusinessName,
+        ownerId: effectiveOwnerId,
+        loginAt: Date.now() // Tambahkan waktu login untuk deteksi durasi
+    };
+
+    // Buat Token JWT berlaku 24 jam
+    const token = jwt.sign(userData, JWT_SECRET, { expiresIn: "24h" });
+
+    // Set HttpOnly Cookie
+    const cookieStore = await cookies();
+    cookieStore.set("session_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 60 * 60 * 24, // 24 jam dalam detik
+        sameSite: "lax",
+        path: "/",
+    });
+
     return { 
         success: true, 
-        user: { 
-            id: user.id, 
-            name: user.name, 
-            email: user.email, 
-            role: user.role,
-            avatarImage: user.avatarImage,
-            businessName: effectiveBusinessName,
-            ownerId: effectiveOwnerId
-        } 
+        user: userData
     };
   } catch (error) {
     console.error("Login error:", error);
     return { success: false, message: "Terjadi kesalahan pada server" };
   }
+}
+
+export async function logoutAction() {
+    try {
+        const cookieStore = await cookies();
+        cookieStore.delete("session_token");
+        return { success: true };
+    } catch (error) {
+        return { success: false, message: "Gagal logout" };
+    }
+}
+
+export async function getSession() {
+    try {
+        const cookieStore = await cookies();
+        const token = cookieStore.get("session_token")?.value;
+        if (!token) return null;
+
+        const decoded = jwt.verify(token, JWT_SECRET);
+        return decoded as any;
+    } catch (error) {
+        return null;
+    }
 }
 
 export async function registerAction(data: { name: string; email: string; password: string; businessName: string }) {
@@ -102,17 +145,21 @@ export async function updateProfileAction(userId: number, data: { name?: string;
     const effectiveOwnerId = updatedUser.role === "owner" ? updatedUser.id : updatedUser.ownerId;
     const effectiveBusinessName = updatedUser.role === "owner" ? updatedUser.businessName : updatedUser.owner?.businessName;
 
+    const userData = {
+      id: updatedUser.id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      avatarImage: updatedUser.avatarImage,
+      businessName: effectiveBusinessName,
+      ownerId: effectiveOwnerId
+    };
+
+    // Update token juga jika profil berubah? Bisa diskip dulu atau implement re-sign
+    
     return {
       success: true,
-      user: {
-        id: updatedUser.id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        role: updatedUser.role,
-        avatarImage: updatedUser.avatarImage,
-        businessName: effectiveBusinessName,
-        ownerId: effectiveOwnerId
-      },
+      user: userData,
     };
   } catch (error) {
     console.error("Profile update error:", error);

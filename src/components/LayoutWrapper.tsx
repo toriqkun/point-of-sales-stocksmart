@@ -3,13 +3,19 @@
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/Sidebar";
 import { cn } from "@/lib/utils";
+import { ReviewModal } from "@/components/ReviewModal";
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdminRoute = pathname.startsWith("/admin");
 
   if (!isAdminRoute) {
-    return <div className="min-h-screen bg-white">{children}</div>;
+    return (
+      <div className="min-h-screen bg-white">
+        {children}
+        <ReviewModal />
+      </div>
+    );
   }
 
   return (
@@ -20,6 +26,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </main>
+      <ReviewModal />
     </div>
   );
 }
