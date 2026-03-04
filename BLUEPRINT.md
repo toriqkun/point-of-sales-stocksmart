@@ -99,6 +99,7 @@
 - [x] POS & Stock Sync.
 - [x] K-Means Clustering Core.
 - [x] Thermal Print 58mm/80mm.
+- [x] HPP (Modal) & Profit Tracking.
 - [x] Excel Reporting.
 
 **v1.5 (Planned)**

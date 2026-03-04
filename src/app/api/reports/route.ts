@@ -39,13 +39,20 @@ export async function GET(request: Request) {
     });
 
     // Flatten for easy display or export
-    const reportData = transactions.map((t: any) => ({
-      id: t.id,
-      date: t.createdAt,
-      totalPrice: t.totalPrice,
-      itemsCount: t.items.length,
-      itemDetails: t.items.map((i: any) => `${i.product.name} (${i.quantity})`).join(", ")
-    }));
+    const reportData = transactions.map((t: any) => {
+      const totalPurchase = t.items.reduce((sum: number, i: any) => sum + (i.purchasePrice * i.quantity), 0);
+      const totalProfit = t.totalPrice - totalPurchase;
+
+      return {
+        id: t.id,
+        date: t.createdAt,
+        totalPrice: t.totalPrice,
+        totalPurchase: totalPurchase,
+        totalProfit: totalProfit,
+        itemsCount: t.items.length,
+        itemDetails: t.items.map((i: any) => `${i.product.name} (${i.quantity})`).join(", ")
+      };
+    });
 
     return NextResponse.json(reportData);
   } catch (error) {

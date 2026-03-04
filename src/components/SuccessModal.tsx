@@ -24,7 +24,7 @@ export function SuccessModal({
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-100 flex items-center justify-center p-4 animate-in fade-in duration-300">
       <div className="bg-white rounded-[2.5rem] w-full max-w-[450px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-white/20">
-        <div className="relative p-8 text-center">
+        <div className="relative p-4 sm:p-8  text-center">
           <button 
             onClick={onClose}
             className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-all"
@@ -32,7 +32,7 @@ export function SuccessModal({
             <X className="w-5 h-5" />
           </button>
 
-          <div className="w-24 h-24 rounded-3xl bg-emerald-50 text-emerald-500 flex items-center justify-center mx-auto mb-6 shadow-sm border border-emerald-100/50">
+          <div className="w-24 h-24 rounded-3xl bg-emerald-100 text-emerald-500 flex items-center justify-center mx-auto mb-6 shadow-sm border border-emerald-200/50">
             <CheckCircle2 className="w-12 h-12" />
           </div>
           
@@ -63,7 +63,7 @@ export function SuccessModal({
             </button>
             <button
               onClick={onClose}
-              className="w-full py-4 px-6 rounded-2xl font-bold text-slate-500 hover:bg-slate-50 transition-all cursor-pointer"
+              className="w-full py-4 px-6 rounded-2xl font-bold text-slate-500 hover:bg-slate-50 border border-gray-400 transition-all cursor-pointer"
             >
               Lanjutkan Transaksi
             </button>

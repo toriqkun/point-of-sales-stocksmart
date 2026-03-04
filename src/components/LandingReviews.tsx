@@ -98,8 +98,18 @@ export function LandingReviews() {
                         )}
                       </div>
                       <div>
-                        <p className="font-bold text-slate-900">{review.user?.name}</p>
-                        <div className="flex gap-0.5">
+                        <div className="flex items-center gap-2">
+                          <p className="font-bold text-slate-900">{review.user?.name}</p>
+                          <span className={cn(
+                            "px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest border",
+                            review.user?.role === "owner" 
+                              ? "bg-amber-50 text-amber-600 border-amber-100" 
+                              : "bg-indigo-50 text-indigo-600 border-indigo-100"
+                          )}>
+                            {review.user?.role}
+                          </span>
+                        </div>
+                        <div className="flex gap-0.5 mt-0.5">
                           {[1, 2, 3, 4, 5].map((s) => (
                             <Star 
                               key={s} 

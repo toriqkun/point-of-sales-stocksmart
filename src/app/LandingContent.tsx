@@ -17,7 +17,8 @@ import {
   Star,
   MessageSquare,
   Send,
-  Loader2
+  Loader2,
+  Calculator
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LandingReviews } from "@/components/LandingReviews";
@@ -174,7 +175,6 @@ export function LandingContent({ initialStats }: LandingContentProps) {
               title="Print Struk Thermal"
               desc="Suport printer 58mm & 80mm. Layout profesional, bersih, dan hemat kertas. Langsung cetak via browser."
               gradient="from-amber-500/10 to-orange-500/10"
-              newBadge
             />
             <FeatureCard 
               icon={<ShieldCheck className="w-8 h-8 text-blue-600" />}
@@ -189,9 +189,9 @@ export function LandingContent({ initialStats }: LandingContentProps) {
               gradient="from-rose-500/10 to-pink-500/10"
             />
             <FeatureCard 
-              icon={<Smartphone className="w-8 h-8 text-violet-600" />}
-              title="Akses Dimana Saja"
-              desc="Tampilan responsif untuk HP, Tablet, maupun PC. Kelola bisnis Anda dari genggaman tangan."
+              icon={<Calculator className="w-8 h-8 text-violet-600" />}
+              title="Perhitungan HPP & Laba"
+              desc="Hitung modal produk, harga jual, dan estimasi keuntungan secara otomatis untuk setiap transaksi Anda secara akurat."
               gradient="from-violet-500/10 to-fuchsia-500/10"
             />
           </div>

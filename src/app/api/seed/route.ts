@@ -26,12 +26,12 @@ export async function GET() {
 
     // Create products
     const products = await Promise.all([
-      prisma.product.create({ data: { name: "Burger Original", price: 15000, stock: 100, ownerId } }),
-      prisma.product.create({ data: { name: "Burger Keju", price: 18000, stock: 80, ownerId } }),
-      prisma.product.create({ data: { name: "Burger BBQ", price: 20000, stock: 50, ownerId } }),
-      prisma.product.create({ data: { name: "Kentang Goreng", price: 12000, stock: 120, ownerId } }),
-      prisma.product.create({ data: { name: "Es Teh", price: 5000, stock: 200, ownerId } }),
-      prisma.product.create({ data: { name: "Dimsum Keju", price: 15000, stock: 40, ownerId } }),
+      prisma.product.create({ data: { name: "Burger Original", price: 15000, purchasePrice: 10000, stock: 100, ownerId } }),
+      prisma.product.create({ data: { name: "Burger Keju", price: 18000, purchasePrice: 12500, stock: 80, ownerId } }),
+      prisma.product.create({ data: { name: "Burger BBQ", price: 20000, purchasePrice: 14000, stock: 50, ownerId } }),
+      prisma.product.create({ data: { name: "Kentang Goreng", price: 12000, purchasePrice: 7000, stock: 120, ownerId } }),
+      prisma.product.create({ data: { name: "Es Teh", price: 5000, purchasePrice: 2000, stock: 200, ownerId } }),
+      prisma.product.create({ data: { name: "Dimsum Keju", price: 15000, purchasePrice: 9000, stock: 40, ownerId } }),
     ]);
 
     // Create some transactions to allow K-Means to run
@@ -42,7 +42,7 @@ export async function GET() {
         ownerId,
         items: {
           create: [
-            { productId: products[1].id, quantity: 10, subtotal: 180000 }
+            { productId: products[1].id, quantity: 10, purchasePrice: 12500, subtotal: 180000 }
           ]
         }
       }
@@ -55,9 +55,9 @@ export async function GET() {
         ownerId,
         items: {
           create: [
-            { productId: products[0].id, quantity: 1, subtotal: 15000 },
-            { productId: products[3].id, quantity: 2, subtotal: 24000 },
-            { productId: products[4].id, quantity: 2, subtotal: 8000 },
+            { productId: products[0].id, quantity: 1, purchasePrice: 10000, subtotal: 15000 },
+            { productId: products[3].id, quantity: 2, purchasePrice: 7000, subtotal: 24000 },
+            { productId: products[4].id, quantity: 2, purchasePrice: 2000, subtotal: 8000 },
           ]
         }
       }
@@ -70,7 +70,7 @@ export async function GET() {
         ownerId,
         items: {
           create: [
-            { productId: products[1].id, quantity: 2, subtotal: 36000 }
+            { productId: products[1].id, quantity: 2, purchasePrice: 12500, subtotal: 36000 }
           ]
         }
       }

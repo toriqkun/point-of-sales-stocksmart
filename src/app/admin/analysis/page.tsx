@@ -84,20 +84,20 @@ export default function AnalysisPage() {
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-bold text-slate-900">Analisis Segmentasi K-Means</h2>
-          <p className="text-slate-500">Kelompokkan produk {user?.businessName ? `di ${user.businessName}` : ""} berdasarkan performa penjualan</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Analisis Segmentasi K-Means</h2>
+          <p className="text-slate-500 text-md sm:text-xl">Kelompokkan produk {user?.businessName ? `di ${user.businessName}` : ""} berdasarkan performa penjualan</p>
         </div>
         <button
           onClick={runAnalysis}
           disabled={analyzing}
-          className="btn-primary flex items-center space-x-2 px-8 py-4 shadow-xl shadow-indigo-500/30 cursor-pointer"
+          className="btn-primary flex items-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 shadow-xl shadow-indigo-500/30 cursor-pointer"
         >
           {analyzing ? (
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
             <Play className="w-5 h-5" />
           )}
-          <span className="font-bold">{analyzing ? "Menganalisis..." : "Jalankan Clustering"}</span>
+          <span className="font-bold">{analyzing ? "Menganalisis..." : "Analisa K-Means"}</span>
         </button>
       </div>
 
@@ -112,10 +112,10 @@ export default function AnalysisPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-slate-100 text-slate-400 text-sm font-medium">
-                    <th className="pb-4 font-semibold px-2">PRODUK</th>
-                    <th className="pb-4 font-semibold text-center">CLUSTER</th>
-                    <th className="pb-4 font-semibold">TINDAKAN REKOMENDASI</th>
+                  <tr className="border-b border-slate-100 text-slate-400 text-[10px] sm:text-xs font-black uppercase tracking-wider">
+                    <th className="pb-4 px-2 min-w-[150px] sm:min-w-0">PRODUK</th>
+                    <th className="pb-4 text-center min-w-[100px] sm:min-w-0">CLUSTER</th>
+                    <th className="pb-4 min-w-[220px] sm:min-w-0">TINDAKAN REKOMENDASI</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-50">
@@ -125,36 +125,39 @@ export default function AnalysisPage() {
                     <tr><td colSpan={3} className="py-10 text-center text-slate-400">Belum ada data produk.</td></tr>
                   ) : (
                     products.map((p) => (
-                      <tr key={p.id}>
-                        <td className="py-4 px-2 font-semibold text-slate-700">{p.name}</td>
+                      <tr key={p.id} className="hover:bg-slate-50/50 transition-colors">
+                        <td className="py-4 px-2 font-bold text-slate-700 text-xs sm:text-sm">{p.name}</td>
                         <td className="py-4 text-center">
                           {p.cluster ? (
                             <span className={cn(
-                              "px-3 py-1 rounded-full text-xs font-bold uppercase",
-                              p.cluster === "High" ? "bg-green-100 text-green-700" :
-                              p.cluster === "Medium" ? "bg-yellow-100 text-yellow-700" :
-                              "bg-red-100 text-red-700"
+                              "px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest",
+                              p.cluster === "High" ? "bg-emerald-100 text-emerald-700 border border-emerald-200" :
+                              p.cluster === "Medium" ? "bg-amber-100 text-amber-700 border border-amber-200" :
+                              "bg-rose-100 text-rose-700 border border-rose-200"
                             )}>
                               {p.cluster}
                             </span>
                           ) : (
-                            <span className="text-slate-300 text-xs italic">Belum dianalisis</span>
+                            <span className="text-slate-300 text-[10px] sm:text-xs italic font-medium uppercase">Belum dianalisis</span>
                           )}
                         </td>
                         <td className="py-4">
                           {p.cluster === "High" && (
-                            <span className="text-emerald-600 text-sm font-medium flex items-center">
-                              <CheckCircle2 className="w-4 h-4 mr-1" /> Jaga stok tetap tersedia (Prioritas Utama)
+                            <span className="text-emerald-600 text-[10px] sm:text-xs font-black flex items-center">
+                              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 shrink-0" /> 
+                              <span>Jaga stok tetap tersedia (Prioritas Utama)</span>
                             </span>
                           )}
                           {p.cluster === "Medium" && (
-                            <span className="text-yellow-600 text-sm font-medium flex items-center">
-                              <Info className="w-4 h-4 mr-1" /> Re-stock sesuai kebutuhan normal
+                            <span className="text-amber-600 text-[10px] sm:text-xs font-black flex items-center">
+                              <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 shrink-0" /> 
+                              <span>Re-stock sesuai kebutuhan normal</span>
                             </span>
                           )}
                           {p.cluster === "Low" && (
-                            <span className="text-red-500 text-sm font-medium flex items-center">
-                              <AlertCircle className="w-4 h-4 mr-1" /> Evaluasi harga atau promosi
+                            <span className="text-rose-500 text-[10px] sm:text-xs font-black flex items-center">
+                              <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 shrink-0" /> 
+                              <span>Evaluasi harga atau promosi</span>
                             </span>
                           )}
                         </td>

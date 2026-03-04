@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const now = new Date();
     
     // 1. Sales today
-    const salesToday = await prisma.transaction.aggregate({
+    const salesToday = await prisma.transaction.findMany({
       where: {
         ownerId: oId,
         createdAt: {
@@ -21,11 +21,19 @@ export async function GET(request: Request) {
           lte: endOfDay(now),
         },
       },
-      _sum: { totalPrice: true },
+      include: {
+        items: true
+      }
     });
 
+    const totalSalesToday = salesToday.reduce((sum, t) => sum + t.totalPrice, 0);
+    const totalProfitToday = salesToday.reduce((sum, t) => {
+      const transactionProfit = t.items.reduce((itemSum, item) => itemSum + (item.subtotal - (item.purchasePrice * item.quantity)), 0);
+      return sum + transactionProfit;
+    }, 0);
+
     // 2. Sales this month
-    const salesMonth = await prisma.transaction.aggregate({
+    const salesMonth = await prisma.transaction.findMany({
       where: {
         ownerId: oId,
         createdAt: {
@@ -33,8 +41,16 @@ export async function GET(request: Request) {
           lte: endOfMonth(now),
         },
       },
-      _sum: { totalPrice: true },
+      include: {
+        items: true
+      }
     });
+
+    const totalSalesMonth = salesMonth.reduce((sum, t) => sum + t.totalPrice, 0);
+    const totalProfitMonth = salesMonth.reduce((sum, t) => {
+      const transactionProfit = t.items.reduce((itemSum, item) => itemSum + (item.subtotal - (item.purchasePrice * item.quantity)), 0);
+      return sum + transactionProfit;
+    }, 0);
 
     // 3. Total products
     const totalProducts = await prisma.product.count({
@@ -77,8 +93,10 @@ export async function GET(request: Request) {
     });
 
     return NextResponse.json({
-      todaySales: salesToday._sum.totalPrice || 0,
-      monthSales: salesMonth._sum.totalPrice || 0,
+      todaySales: totalSalesToday || 0,
+      todayProfit: totalProfitToday || 0,
+      monthSales: totalSalesMonth || 0,
+      monthProfit: totalProfitMonth || 0,
       totalProducts,
       topProducts,
       clusterDist: clusterDist.reduce((acc: any, curr: { cluster: string | null; _count: { id: number } }) => {

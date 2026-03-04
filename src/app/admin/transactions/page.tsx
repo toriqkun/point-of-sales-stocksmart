@@ -146,8 +146,8 @@ export default function TransactionsPage() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-in fade-in duration-500">
       <div className="lg:col-span-2 space-y-6">
         <div>
-          <h2 className="text-3xl font-bold text-slate-900 text-premium">Pencatatan Transaksi</h2>
-          <p className="text-slate-500">Pilih produk untuk ditambahkan ke keranjang {user?.businessName ? `di ${user.businessName}` : ""}</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 text-premium">Pencatatan Transaksi</h2>
+          <p className="text-slate-500 text-md sm:text-xl">Pilih produk untuk ditambahkan ke keranjang {user?.businessName ? `di ${user.businessName}` : ""}</p>
         </div>
 
         <div className="relative">

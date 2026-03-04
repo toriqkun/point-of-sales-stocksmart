@@ -35,7 +35,9 @@ ChartJS.register(
 
 interface DashboardData {
   todaySales: number;
+  todayProfit: number;
   monthSales: number;
+  monthProfit: number;
   totalProducts: number;
   topProducts: { name: string; totalSold: number }[];
   clusterDist: Record<string, number>;
@@ -114,30 +116,34 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-slate-900">Dashboard</h2>
-        <p className="text-slate-500">Ringkasan performa {user?.businessName || "Bisnis Anda"}</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Dashboard</h2>
+        <p className="text-slate-500 text-md sm:text-xl">Ringkasan performa {user?.businessName || "Bisnis Anda"}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
           icon={<DollarSign className="w-6 h-6" />}
-          label="Penjualan Hari Ini"
+          label="Omzet Hari Ini"
           value={formatCurrency(data?.todaySales || 0)}
+          color="bg-indigo-50 text-indigo-600"
+        />
+        <StatCard 
+          icon={<ArrowUpRight className="w-6 h-6" />}
+          label="Laba Hari Ini"
+          value={formatCurrency(data?.todayProfit || 0)}
           color="bg-emerald-50 text-emerald-600"
-          trend={<span className="flex items-center text-xs font-bold text-emerald-600 px-2 py-1 bg-emerald-50 rounded-full"><ArrowUpRight className="w-3 h-3 mr-1" /> 12%</span>}
         />
         <StatCard 
           icon={<TrendingUp className="w-6 h-6" />}
-          label="Penjualan Bulan Ini"
+          label="Omzet Bulan Ini"
           value={formatCurrency(data?.monthSales || 0)}
-          color="bg-indigo-50 text-indigo-600"
-          trend={<span className="flex items-center text-xs font-bold text-indigo-600 px-2 py-1 bg-indigo-50 rounded-full"><ArrowUpRight className="w-3 h-3 mr-1" /> 8%</span>}
+          color="bg-blue-50 text-blue-600"
         />
         <StatCard 
-          icon={<Package className="w-6 h-6" />}
-          label="Total Produk"
-          value={data?.totalProducts || 0}
-          color="bg-violet-50 text-violet-600"
+          icon={<TrendingUp className="w-6 h-6" />}
+          label="Laba Bulan Ini"
+          value={formatCurrency(data?.monthProfit || 0)}
+          color="bg-emerald-100/50 text-emerald-700"
         />
       </div>
 

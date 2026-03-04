@@ -37,7 +37,7 @@ export async function PUT(
 
     const { id } = await params;
     const body = await request.json();
-    const { name, price, stock } = body;
+    const { name, price, purchasePrice, stock } = body;
 
     const product = await prisma.product.updateMany({
       where: { 
@@ -48,6 +48,7 @@ export async function PUT(
         name,
         image: body.image,
         price: price ? parseFloat(price) : undefined,
+        purchasePrice: purchasePrice !== undefined ? parseFloat(purchasePrice) : undefined,
         stock: stock !== undefined ? parseInt(stock) : undefined,
       },
     });

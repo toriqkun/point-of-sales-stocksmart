@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Global Hide number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+.input-field[type="number"]::-webkit-inner-spin-button,
+.input-field[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+input[type="number"],
+.input-field[type="number"] {
+  -moz-appearance: textfield !important;
+  appearance: none !important; /* Changed to none for general standard support */
+  appearance: textfield !important;
+}
 
 :root {
   --background: #f8fafc;
@@ -38,7 +53,6 @@
   --ring: #818cf8;
 }
 
-
 @layer base {
   body {
     background-color: var(--background);
@@ -47,9 +61,7 @@
   }
 }
 
-
 @layer components {
-
   .glass {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);

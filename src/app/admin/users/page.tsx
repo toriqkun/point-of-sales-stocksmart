@@ -136,8 +136,8 @@ export default function UsersManagementPage() {
       <div className="space-y-8 animate-in fade-in duration-500">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900 text-premium">Manajemen User</h2>
-            <p className="text-slate-500">Atur akses pengguna dan peran (Owner/Kasir)</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 text-premium">Manajemen User</h2>
+            <p className="text-slate-500 text-md sm:text-xl">Atur akses pengguna dan peran (Owner/Kasir)</p>
           </div>
           <button
             onClick={() => setIsModalOpen(true)}
@@ -163,11 +163,11 @@ export default function UsersManagementPage() {
           <div className="overflow-x-auto rounded-2xl border border-slate-100">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50/50 text-slate-400 text-[13px] font-black uppercase tracking-wider">
-                  <th className="py-4 px-6">User</th>
-                  <th className="py-4 px-6">Email</th>
-                  <th className="py-4 px-6">Role</th>
-                  <th className="py-4 px-6 text-center">Aksi</th>
+                <tr className="bg-slate-50/50 text-slate-400 text-[10px] sm:text-xs font-black uppercase tracking-wider">
+                  <th className="py-4 px-4 sm:px-6 min-w-[200px] sm:min-w-0">User</th>
+                  <th className="py-4 px-4 sm:px-6 min-w-[150px] sm:min-w-0">Email</th>
+                  <th className="py-4 px-4 sm:px-6 min-w-[120px] sm:min-w-0">Role</th>
+                  <th className="py-4 px-4 sm:px-6 text-center min-w-[100px] sm:min-w-0">Aksi</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -188,9 +188,9 @@ export default function UsersManagementPage() {
                 ) : (
                   filteredUsers.map((user) => (
                     <tr key={user.id} className="hover:bg-slate-50/50 transition-colors group">
-                      <td className="py-4 px-6">
+                      <td className="py-4 px-4 sm:px-6">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-full overflow-hidden bg-indigo-100">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-indigo-100 shrink-0">
                             <Image
                               src={user.avatarImage || "/avatar.png"}
                               alt={user.name}
@@ -199,15 +199,15 @@ export default function UsersManagementPage() {
                               className="object-cover w-full h-full"
                             />
                           </div>
-                          <span className="font-bold text-slate-700">{user.name}</span>
+                          <span className="font-bold text-slate-700 text-xs sm:text-sm line-clamp-1">{user.name}</span>
                         </div>
                       </td>
-                      <td className="py-4 px-6 text-slate-600 font-medium">
+                      <td className="py-4 px-4 sm:px-6 text-slate-600 font-medium text-xs sm:text-sm">
                         {user.email}
                       </td>
-                      <td className="py-4 px-6">
+                      <td className="py-4 px-4 sm:px-6">
                         <span className={cn(
-                          "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
+                          "px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase tracking-widest",
                           user.role === "owner" 
                             ? "bg-amber-100 text-amber-600 border border-amber-200" 
                             : "bg-indigo-100 text-indigo-600 border border-indigo-200"
@@ -295,7 +295,7 @@ export default function UsersManagementPage() {
                         type="button"
                         onClick={() => setFormData({...formData, role})}
                         className={cn(
-                          "flex-1 py-3 px-4 rounded-2xl font-bold border transition-all uppercase text-xs tracking-widest cursor-pointer",
+                          "flex-1 py-2.5 sm:py-3 px-4 rounded-2xl font-bold border transition-all uppercase text-xs tracking-widest cursor-pointer",
                           formData.role === role 
                             ? "bg-indigo-600 text-white border-indigo-600 shadow-md" 
                             : "bg-slate-50 text-slate-400 border-gray-400 hover:bg-slate-100"
@@ -307,18 +307,18 @@ export default function UsersManagementPage() {
                   </div>
                 </div>
 
-                <div className="flex gap-3 pt-4">
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
                   <button 
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 px-6 py-3.5 rounded-2xl font-bold text-slate-500 border border-gray-400 hover:bg-slate-50 transition-all cursor-pointer"
+                    className="order-2 sm:order-1 flex-1 px-6 py-2.5 sm:py-3.5 rounded-2xl font-bold text-slate-500 border border-gray-400 hover:bg-slate-50 transition-all cursor-pointer"
                   >
                     Batal
                   </button>
                   <button 
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 px-6 py-3.5 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all disabled:opacity-50 flex items-center justify-center cursor-pointer"
+                    className="order-1 sm:order-2 flex-1 px-6 py-2.5 sm:py-3.5 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all disabled:opacity-50 flex items-center justify-center cursor-pointer"
                   >
                     {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Tambah User"}
                   </button>

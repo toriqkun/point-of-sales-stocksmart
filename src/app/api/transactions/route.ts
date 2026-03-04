@@ -18,6 +18,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No items in transaction" }, { status: 400 });
     }
 
+    // Get the products to capture their current purchasePrice for reporting historical HPP
+    const productIds = items.map((i: any) => i.id);
+    const productsInDb = await prisma.product.findMany({
+      where: { id: { in: productIds } }
+    });
+
+    const productMap = new Map(productsInDb.map(p => [p.id, p]));
+
     // Use a transaction to ensure atomic updates
     const transaction = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // 1. Create the transaction record
@@ -26,11 +34,15 @@ export async function POST(request: Request) {
           totalPrice,
           ownerId: parseInt(ownerId),
           items: {
-            create: items.map((item: { id: number; quantity: number; price: number }) => ({
-              productId: item.id,
-              quantity: item.quantity,
-              subtotal: item.price * item.quantity,
-            })),
+            create: items.map((item: { id: number; quantity: number; price: number }) => {
+              const p = productMap.get(item.id);
+              return {
+                productId: item.id,
+                quantity: item.quantity,
+                purchasePrice: p?.purchasePrice || 0,
+                subtotal: item.price * item.quantity,
+              };
+            }),
           },
         },
       });
