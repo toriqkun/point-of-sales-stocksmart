@@ -73,16 +73,25 @@ export async function DELETE(
     if (!ownerId) return NextResponse.json({ error: "Owner ID required" }, { status: 400 });
 
     const { id } = await params;
-    const deleteResult = await prisma.product.deleteMany({
-      where: { 
-        id: parseInt(id),
-        ownerId: parseInt(ownerId)
-      },
+    const productId = parseInt(id);
+    const ownerIdNum = parseInt(ownerId);
+
+    const product = await prisma.product.findFirst({
+      where: { id: productId, ownerId: ownerIdNum },
     });
 
-    if (deleteResult.count === 0) {
+    if (!product) {
       return NextResponse.json({ error: "Product not found or access denied" }, { status: 404 });
     }
+
+    await prisma.$transaction([
+      prisma.transactionItem.deleteMany({
+        where: { productId: productId },
+      }),
+      prisma.product.delete({
+        where: { id: productId },
+      }),
+    ]);
 
     return NextResponse.json({ message: "Product deleted" });
   } catch (error) {
