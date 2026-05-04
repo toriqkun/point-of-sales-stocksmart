@@ -1,20 +1,20 @@
-# 🚀 StockSmart - Smart SaaS POS & Stock Management
+#  StockSmart - Smart SaaS POS & Stock Management
 
 **StockSmart** adalah aplikasi SaaS Point of Sales (POS) modern yang dirancang untuk membantu pemilik bisnis mengelola inventaris secara cerdas dan otomatis. Dengan integrasi algoritma Machine Learning lokal, StockSmart tidak hanya mencatat transaksi, tetapi juga memberikan wawasan mendalam tentang performa produk Anda.
 
 ---
 
-## 🌟 Fitur Utama
+##  Fitur Utama
 
--   **🛒 Point of Sales (POS) Modern**: Antarmuka kasir yang cepat dengan pengurangan stok otomatis secara real-time.
--   **🏢 Multi-Tenancy System**: Mendukung banyak pemilik bisnis (Owner). Data antar tenant terisolasi secara aman dan privat.
--   **📦 Manajemen Produk (CRUD)**: Kelola data produk, harga, kategori, dan gambar produk melalui integrasi Cloudinary.
--   **📊 Dashboard Analitik**: Visualisasi grafik penjualan harian/bulanan, tren produk terlaris, dan distribusi segmentasi produk.
--   **🤖 K-Means Clustering (AI)**: Fitur unggulan yang mengelompokkan produk secara otomatis menjadi kategori **High**, **Medium**, dan **Low Priority** berdasarkan data historis penjualan.
--   **📄 Laporan Export Excel**: Unduh laporan penjualan periodik langsung ke format `.xlsx` yang rapi dan siap audit.
--   **📅 Filter Laporan Cerdas**: Pantau performa bisnis berdasarkan rentang tanggal yang fleksibel.
--   **🖨️ Thermal Receipt Printing**: Sistem cetak struk khusus printer thermal (58mm/80mm) dengan layout yang presisi, hemat kertas, dan profesional.
--   **⚠️ Smart Restock Alerts**: Peringatan otomatis untuk produk dengan stok menipis, diprioritaskan berdasarkan kategori hasil analisis AI.
+-   ** Point of Sales (POS) Modern**: Antarmuka kasir yang cepat dengan pengurangan stok otomatis secara real-time.
+-   ** Multi-Tenancy System**: Mendukung banyak pemilik bisnis (Owner). Data antar tenant terisolasi secara aman dan privat.
+-   ** Manajemen Produk (CRUD)**: Kelola data produk, harga, kategori, dan gambar produk melalui integrasi Cloudinary.
+-   ** Dashboard Analitik**: Visualisasi grafik penjualan harian/bulanan, tren produk terlaris, dan distribusi segmentasi produk.
+-   ** K-Means Clustering (AI)**: Fitur unggulan yang mengelompokkan produk secara otomatis menjadi kategori **High**, **Medium**, dan **Low Priority** berdasarkan data historis penjualan.
+-   ** Laporan Export Excel**: Unduh laporan penjualan periodik langsung ke format `.xlsx` yang rapi dan siap audit.
+-   ** Filter Laporan Cerdas**: Pantau performa bisnis berdasarkan rentang tanggal yang fleksibel.
+-   ** Thermal Receipt Printing**: Sistem cetak struk khusus printer thermal (58mm/80mm) dengan layout yang presisi, hemat kertas, dan profesional.
+-   ** Smart Restock Alerts**: Peringatan otomatis untuk produk dengan stok menipis, diprioritaskan berdasarkan kategori hasil analisis AI.
 
 ---
 
@@ -51,7 +51,7 @@
 
 ---
 
-## 📂 Struktur Project
+##  Struktur Project
 
 ```text
 StockSmart/
@@ -88,7 +88,7 @@ StockSmart/
 
 ---
 
-## 🚀 Cara Menjalankan Secara Lokal
+##  Cara Menjalankan Secara Lokal
 
 1.  **Clone Repository**
     ```bash
@@ -124,16 +124,11 @@ StockSmart/
 
 ---
 
-## 🔮 Future Improvements
+##  Future Improvements
 - [ ] Integrasi Pembayaran Digital (QRIS/E-Wallet).
 - [ ] Sistem manajemen Supplier.
 - [ ] Role Management yang lebih granular.
 - [ ] Notifikasi WhatsApp untuk laporan otomatis harian.
-
----
-
-## 📄 Lisensi
-MIT.
 
 ---
 **StockSmart** - *Empowering small businesses with smart data insights.*
