@@ -18,7 +18,7 @@
 
 ---
 
-## 🖥️ Overview Halaman
+##  Overview Halaman
 
 -   **Landing Page**: Halaman depan komersial yang modern, elegan, dan informatif.
 -   **Auth (Login/Register)**: Sistem autentikasi aman untuk Owner dan Kasir.
@@ -30,7 +30,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend & Backend
 -   **Framework**: [Next.js 15+](https://nextjs.org/) (App Router)
