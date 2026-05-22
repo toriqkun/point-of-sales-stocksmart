@@ -1,19 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const ownerId = request.headers.get("x-owner-id");
     if (!ownerId) return NextResponse.json({ error: "Owner ID required" }, { status: 400 });
 
     const { id } = await params;
     const product = await prisma.product.findFirst({
-      where: { 
+      where: {
         id: parseInt(id),
-        ownerId: parseInt(ownerId)
+        ownerId: parseInt(ownerId),
       },
     });
 
@@ -23,14 +20,12 @@ export async function GET(
 
     return NextResponse.json(product);
   } catch (error) {
+    console.error("Fetch error:", error);
     return NextResponse.json({ error: "Failed to fetch product" }, { status: 500 });
   }
 }
 
-export async function PUT(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const ownerId = request.headers.get("x-owner-id");
     if (!ownerId) return NextResponse.json({ error: "Owner ID required" }, { status: 400 });
@@ -40,9 +35,9 @@ export async function PUT(
     const { name, price, purchasePrice, stock } = body;
 
     const product = await prisma.product.updateMany({
-      where: { 
+      where: {
         id: parseInt(id),
-        ownerId: parseInt(ownerId)
+        ownerId: parseInt(ownerId),
       },
       data: {
         name,
@@ -64,10 +59,7 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const ownerId = request.headers.get("x-owner-id");
     if (!ownerId) return NextResponse.json({ error: "Owner ID required" }, { status: 400 });
